@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A Letter to You - A Quiet Gift</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        header {
+            background: transparent;
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-button {
+            color: #4a5568;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            background: #fff;
+        }
+
+        .back-arrow {
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .book-container {
+            flex: 1;
+            max-width: 1400px;
+            margin: 6rem auto 4rem;
+            perspective: 2000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        /* Table surface */
+        .book-container::before {
+            content: '';
+            position: absolute;
+            width: 140%;
+            height: 100%;
+            background: linear-gradient(45deg, #4a3424 0%, #6b4c34 100%);
+            transform: rotateX(45deg) translateZ(-200px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            background-image: 
+                url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjNjU0MzIxIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDVMNSAwWk02IDRMNCA2Wk0tMSAxTDEgLTFaIiBzdHJva2U9IiM1NDM4MjIiIHN0cm9rZS13aWR0aD0iMSI+PC9wYXRoPgo8L3N2Zz4=');
+            background-repeat: repeat;
+            z-index: -1;
+        }
+
+        .book {
+            width: 1000px;
+            height: 700px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(10deg);
+            background: #8B4513;
+            border-radius: 2px 6px 6px 2px;
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.6),
+                0 0 100px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: 
+                url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+CjxyZWN0IHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iIzhCNDUxMyI+PC9yZWN0Pgo8Y2lyY2xlIGN4PSI1IiBjeT0iNSIgcj0iNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDAsIDAsIDAsIDAuMSkiIHN0cm9rZS13aWR0aD0iMSI+PC9jaXJjbGU+Cjwvc3ZnPg==');
+            background-repeat: repeat;
+        }
+
+        /* Book spine with texture */
+        .book::before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 100%;
+            transform: rotateY(90deg);
+            background: linear-gradient(to right, #8B4513, #654321);
+            transform-origin: left;
+            left: -30px;
+            top: 0;
+            border-radius: 3px 0 0 3px;
+            box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.5);
+            background-image: 
+                linear-gradient(90deg, rgba(0,0,0,0.1) 0px, transparent 1px),
+                linear-gradient(rgba(0,0,0,0.1) 0px, transparent 1px);
+            background-size: 15px 15px;
+        }
+
+        /* Book pages side */
+        .book::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            transform: rotateX(90deg);
+            background: #fff;
+            transform-origin: bottom;
+            bottom: -25px;
+            left: 0;
+            background: linear-gradient(to bottom, 
+                #fff 0%, 
+                #f0f0f0 5%,
+                #fff 10%,
+                #f0f0f0 15%,
+                #fff 20%,
+                #f0f0f0 25%,
+                #fff 30%,
+                #f0f0f0 35%,
+                #fff 40%
+            );
+            box-shadow: 
+                0 5px 5px rgba(0,0,0,0.2),
+                inset 0 0 30px rgba(0,0,0,0.1);
+        }
+
+        .page-container {
+            width: 92%;
+            height: 94%;
+            position: relative;
+            transform-style: preserve-3d;
+            background: #fff;
+        }
+
+        .page {
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            right: 0;
+            transform-origin: left;
+            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            background: #fff;
+            box-shadow: 
+                -1px 0 2px rgba(0,0,0,0.1),
+                inset -1px 0 1px rgba(0,0,0,0.1);
+        }
+
+        /* Page fold effect */
+        .page::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(0,0,0,0.1));
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .page-front, .page-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 2.8rem 3.2rem;
+            backface-visibility: hidden;
+            background: #fff;
+            background-image: 
+                url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4KPGZpbHRlciBpZD0ibm9pc2UiIHg9IjAiIHk9IjAiPgo8ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC42NSIgbnVtT2N0YXZlcz0iMyIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPgo8L2ZpbHRlcj4KPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmZmZmZmYiLz4KPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjAuMDQiLz4KPC9zdmc+'),
+                url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+CjxmaWx0ZXIgaWQ9InBhcGVyIiB4PSIwIiB5PSIwIj4KPGZVVHV5YnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOCIgbnVtT2N0YXZlcz0iNCIvPgo8L2ZpbHRlcj4KPHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgZmlsdGVyPSJ1cmwoI3BhcGVyKSIgb3BhY2l0eT0iMC4wMiIvPgo8L3N2Zz4='),
+                linear-gradient(90deg, rgba(0,0,0,0.03) 0px, transparent 1px),
+                linear-gradient(rgba(0,0,0,0.03) 0px, transparent 1px);
+            background-size: 100px 100px, 50px 50px, 24px 24px, 24px 24px;
+            background-position: center center;
+            box-shadow: 
+                inset 0 0 100px rgba(0,0,0,0.05),
+                0 0 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-front::before, .page-back::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj4KPGZpbHRlciBpZD0icGFwZXJ0ZXh0dXJlIj4KPGZVVHV5YnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNzUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz4KPC9maWx0ZXI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWx0ZXI9InVybCgjcGFwZXJ0ZXh0dXJlKSIgb3BhY2l0eT0iMC4wMyIvPgo8L3N2Zz4=');
+            background-size: 200px 200px;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .letter-title, .letter-recipient, .letter-signature {
+            position: relative;
+            z-index: 2;
+        }
+
+        .letter-title {
+            font-family: 'Merriweather', serif;
+            font-size: 1.35rem;
+            color: #2c5282;
+            margin-bottom: 1.2rem;
+            font-weight: normal;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .letter-recipient {
+            font-size: 0.95rem;
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .letter-content {
+            position: relative;
+            z-index: 4;
+            font-size: 0.88rem;
+            line-height: 1.75;
+            color: #4a5568;
+            font-family: 'Segoe UI', sans-serif;
+            text-align: justify;
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to bottom,
+                transparent,
+                transparent 95%,
+                rgba(255,255,255,0.8) 100%
+            );
+        }
+
+        .letter-content p {
+            margin-bottom: 1.1rem;
+            text-indent: 1.5rem;
+        }
+
+        .letter-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .letter-signature {
+            font-style: italic;
+            color: #4a5568;
+            text-align: right;
+            margin-top: auto;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .page-hint {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            color: rgba(142, 154, 175, 0.9);
+            font-size: 0.75rem;
+            font-style: italic;
+            opacity: 0.8;
+            animation: pulse 2s infinite;
+            z-index: 4;
+            text-shadow: 0 0 5px rgba(255,255,255,0.8);
+        }
+
+        /* Custom scrollbar for letter content */
+        .letter-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .letter-content::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.02);
+        }
+
+        .letter-content::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.08);
+            border-radius: 2px;
+        }
+
+        @media (max-width: 1200px) {
+            .book {
+                width: 800px;
+                height: 600px;
+            }
+
+            .page-front, .page-back {
+                padding: 2.5rem 2.8rem;
+            }
+
+            .letter-title {
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
+            }
+
+            .letter-content {
+                font-size: 0.85rem;
+                line-height: 1.7;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .book {
+                width: 95vw;
+                height: 85vh;
+            }
+
+            .page-front, .page-back {
+                padding: 2rem 2.4rem;
+            }
+
+            .letter-title {
+                font-size: 1.15rem;
+            }
+
+            .letter-content {
+                font-size: 0.82rem;
+                line-height: 1.65;
+            }
+
+            .letter-content p {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .page-back {
+            transform: rotateY(180deg);
+        }
+
+        .page.flipped {
+            transform: rotateY(-180deg);
+        }
+
+        /* Enhanced page texture */
+        .page-front::after, .page-back::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(
+                    -45deg,
+                    rgba(0,0,0,0.02) 0px,
+                    rgba(0,0,0,0.02) 1px,
+                    transparent 1px,
+                    transparent 3px
+                );
+            mix-blend-mode: multiply;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Subtle paper grain overlay */
+        .page-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj4KPGZpbHRlciBpZD0iZ3JhaW4iPgo8ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC44IiBudW1PY3RhdmVzPSI0IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+CjwvZmlsdGVyPgo8cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2ZmZmZmZiIvPgo8cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsdGVyPSJ1cmwoI2dyYWluKSIgb3BhY2l0eT0iMC4wNSIvPgo8L3N2Zz4=');
+            background-size: 300px 300px;
+            opacity: 0.8;
+            mix-blend-mode: multiply;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        /* Vignette effect on pages */
+        .page-front::before, .page-back::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                circle at center,
+                transparent 60%,
+                rgba(0,0,0,0.03) 100%
+            );
+            pointer-events: none;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back-button">
+            <span class="back-arrow">←</span>
+            Back to Home
+        </a>
+    </header>
+
+    <div class="book-container">
+        <div class="book">
+            <div class="page-container">
+                <div class="page">
+                    <div class="page-front">
+                        <h2 class="letter-title">To the One I Quietly Admire</h2>
+                        <p class="letter-recipient">Dear, Scndalous Schottenstein</p>
+                        <div class="letter-content">
+                            <p>I've thought about writing this for some time — not because I expect anything from it, but because sometimes gratitude just needs a place to live. This is mine.</p>
+
+                            <p>There's so much about you that I admire — not just in the obvious ways, but in the subtle strength you carry without drawing attention to it. The way you keep going, even when things are heavy. The kindness in your actions, the way you manage to be thoughtful without needing to be loud about it. I notice those things. And I'm proud of you, even from a distance.</p>
+
+                            <p>You've handled so much with grace. You've stayed true to yourself in a world that often makes that difficult. Watching you grow, choose yourself, and keep showing up — it's something I deeply respect.</p>
+                        </div>
+                        <span class="page-hint">✧ tap to turn page ✧</span>
+                    </div>
+                    <div class="page-back">
+                        <div class="letter-content">
+                            <p>I don't know if you hear this enough, but you should: you're doing better than you think. And who you are — right now — is already something to be proud of.</p>
+
+                            <p>I'm not writing this for answers or attention. I'm writing because I want you to know someone sees how far you've come. I want you to know that even in quiet corners of the world, someone is grateful for your existence — and quietly cheering you on.</p>
+
+                            <p>So thank you. Thank you for being you, for all the small and strong ways you continue forward. Whether or not our paths cross again often, just know you've left a soft kind of impact that stays.</p>
+
+                            <p>Keep going. You're doing beautifully.</p>
+                        </div>
+                        <p class="letter-signature">
+                            Wystan Vuougénez
+                        </p>
+                        <span class="page-hint">← turn back</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const page = document.querySelector('.page');
+            let isFlipped = false;
+
+            page.addEventListener('click', function() {
+                if (!isFlipped) {
+                    this.classList.add('flipped');
+                } else {
+                    this.classList.remove('flipped');
+                }
+                isFlipped = !isFlipped;
+            });
+        });
+    </script>
+</body>
+</html> 

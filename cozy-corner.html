@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Cozy Corner - A Quiet Gift</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Source+Sans+Pro:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="your-logo.svg" alt="A Quiet Gift Logo" class="logo-img">
+            </div>
+            <h1 class="site-title">A Quiet Gift</h1>
+        </div>
+        <nav>
+            <a href="index.html">← Back to Home</a>
+        </nav>
+    </header>
+
+    <div class="cozy-room">
+        <div class="room-title">
+            <h2>A Quiet Corner, Just for You</h2>
+            <p>Click on objects to discover little moments of comfort</p>
+        </div>
+
+        <div class="room-container">
+            <!-- Time-Sensitive Message Section -->
+            <div class="time-message">
+                <div class="time-icon">🌅</div>
+                <p class="time-text">You've got time. There's no need to rush.</p>
+            </div>
+
+            <!-- Ambient Elements -->
+            <div class="window">
+                <div class="window-light"></div>
+                <div class="rain-overlay"></div>
+            </div>
+            <div class="plant"></div>
+            <div class="fairy-lights"></div>
+
+            <!-- Interactive Objects -->
+            <div class="interactive-objects">
+                <div class="object book" data-type="book">
+                    <span class="object-emoji">📖</span>
+                    <div class="object-hint">A book of gentle thoughts</div>
+                </div>
+
+                <div class="object cup" data-type="cup">
+                    <span class="object-emoji">☕</span>
+                    <div class="object-hint">A warm cup of comfort</div>
+                </div>
+
+                <div class="object blanket" data-type="blanket">
+                    <span class="object-emoji">🧣</span>
+                    <div class="object-hint">A soft reminder</div>
+                </div>
+
+                <div class="object candle" data-type="candle">
+                    <span class="object-emoji">🕯️</span>
+                    <div class="object-hint">A flicker of peace</div>
+                </div>
+
+                <div class="object journal" data-type="journal">
+                    <span class="object-emoji">📔</span>
+                    <div class="object-hint">Pages for your thoughts</div>
+                </div>
+
+                <div class="object music" data-type="music">
+                    <span class="object-emoji">🎵</span>
+                    <div class="object-hint">Melodies for your soul</div>
+                </div>
+            </div>
+
+            <!-- Open When Letters Section -->
+            <div class="open-when-section">
+                <h3>Open When...</h3>
+                <p class="section-description">Little letters for different moments</p>
+                
+                <div class="letters-container">
+                    <div class="letter" data-type="alone">
+                        <div class="letter-front">
+                            <span class="letter-emoji">💌</span>
+                            <h4>Open when you feel alone</h4>
+                        </div>
+                    </div>
+
+                    <div class="letter" data-type="unsure">
+                        <div class="letter-front">
+                            <span class="letter-emoji">💌</span>
+                            <h4>Open when you're unsure of yourself</h4>
+                        </div>
+                    </div>
+
+                    <div class="letter" data-type="special">
+                        <div class="letter-front">
+                            <span class="letter-emoji">💌</span>
+                            <h4>Open when you forget how special you are</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Message Modal -->
+        <div class="comfort-modal" id="comfortModal">
+            <div class="modal-content">
+                <div class="modal-message"></div>
+                <button class="close-modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('comfortModal');
+            const modalMessage = modal.querySelector('.modal-message');
+            const closeButton = modal.querySelector('.close-modal');
+            
+            // Messages for each object and letter
+            const messages = {
+                book: {
+                    title: "From the Pages of Comfort",
+                    content: `<p>Dear one,</p>
+                    <p>In the quiet moments when you need a reminder, remember that you are carrying stories of strength within you. Every page of your journey matters, even the dog-eared ones.</p>
+                    <p>Take this moment to breathe, to be gentle with yourself, to remember that you are writing your story at your own pace.</p>
+                    <p>And that's exactly as it should be.</p>`
+                },
+                cup: {
+                    title: "A Moment of Warmth",
+                    content: `<p>Here's a warm reminder:</p>
+                    <p>You don't have to have it all figured out right now. Sometimes the bravest thing you can do is pause, take a sip, and let yourself be exactly where you are.</p>
+                    <p>This moment is yours. No rush, no pressure. Just warmth and quiet understanding.</p>`
+                },
+                blanket: {
+                    title: "A Gentle Embrace",
+                    content: `<p>Wrap up. You don't have to carry it all.</p>
+                    <p>Some days are for being soft, for letting things be, for wrapping yourself in gentleness and understanding that rest isn't just allowed – it's necessary.</p>
+                    <p>Take this moment to let go of what's heavy. You're doing better than you think.</p>`
+                },
+                candle: {
+                    title: "A Light in the Quiet",
+                    content: `<p>Sometimes all we need is a small light to remind us:</p>
+                    <p>Even in the darkest moments, there's always a flicker of hope waiting to be noticed. Your presence, just like this flame, brings warmth to places you might not even realize.</p>
+                    <p>Let this gentle light remind you that you're never truly alone in the darkness.</p>`
+                },
+                journal: {
+                    title: "Your Story Matters",
+                    content: `<p>Dear gentle soul,</p>
+                    <p>These pages are yours – for the words you can't say out loud, for the feelings that need a safe place to land, for the dreams that are still taking shape.</p>
+                    <p>Your thoughts, your feelings, your journey – they all deserve to be acknowledged. Write softly, write wildly, or don't write at all. This space holds it all.</p>`
+                },
+                music: {
+                    title: "Melodies of Peace",
+                    content: `<p>Close your eyes for a moment...</p>
+                    <p>Let the gentle rhythm of your breath become your melody. Like music that soothes without words, you don't need to explain or justify your presence.</p>
+                    <p>Sometimes the most beautiful songs are the ones we feel rather than hear. Your heart carries its own perfect rhythm.</p>`
+                },
+                alone: {
+                    title: "You're Not Alone",
+                    content: `<p>My dear friend,</p>
+                    <p>I know it might feel like you're walking this path by yourself, but please remember: your footprints are running parallel to so many others who understand. The quiet moments don't mean you're alone – they're just pauses between connections.</p>
+                    <p>Your presence in this world creates ripples you can't always see. Someone is thinking of you right now. Someone's day was better because you exist. Someone remembers your kindness, your laugh, your light.</p>
+                    <p>You are so deeply, incredibly loved – even in the silence, even in the spaces between words, even when you can't feel it. You are held in more hearts than you know.</p>`
+                },
+                unsure: {
+                    title: "A Reminder of Your Strength",
+                    content: `<p>Dear wonderful soul,</p>
+                    <p>It's okay to feel uncertain. It's okay to not have all the answers. Your worth isn't measured by your confidence – it's in the way you keep going, keep trying, keep believing in the possibility of better days.</p>
+                    <p>Remember: every expert was once a beginner. Every confident person once trembled with doubt. Your uncertainty isn't a flaw – it's a sign that you're growing, learning, becoming.</p>
+                    <p>Trust the quiet wisdom in your heart. It has carried you this far, and it knows the way forward.</p>`
+                },
+                special: {
+                    title: "The Truth About You",
+                    content: `<p>To you, who needs this reminder:</p>
+                    <p>You are stardust and stories, dreams and determination. You are morning light through leaves, the first snowflake of winter, the last rose of summer. You are entirely, uniquely, magnificently you.</p>
+                    <p>Your kind of special isn't loud or showy – it's in the way you notice things others miss, the way you care when no one's watching, the way you keep hoping even when it's hard.</p>
+                    <p>You don't have to prove your worth to anyone. You don't have to earn the right to exist beautifully, imperfectly, wonderfully you. You already are everything you need to be.</p>`
+                }
+            };
+
+            // Add click event to objects and letters
+            document.querySelectorAll('.object, .letter').forEach(item => {
+                item.addEventListener('click', function() {
+                    const type = this.dataset.type;
+                    const message = messages[type];
+                    
+                    modalMessage.innerHTML = `
+                        <h3>${message.title}</h3>
+                        ${message.content}
+                    `;
+                    
+                    // Add paragraph indexing for sequential animation
+                    modalMessage.querySelectorAll('p').forEach((p, index) => {
+                        p.style.setProperty('--paragraph-index', index);
+                    });
+                    
+                    modal.classList.add('active');
+                    modal.querySelector('.modal-content').style.opacity = '1';
+                    modal.querySelector('.modal-content').style.transform = 'translateY(0)';
+                    modal.querySelector('.modal-message').style.opacity = '1';
+                    modal.querySelector('.modal-message').style.transform = 'translateY(0)';
+                    modal.querySelector('.close-modal').style.opacity = '1';
+                    modal.querySelector('.close-modal').style.transform = 'translateY(0)';
+                    
+                    this.classList.add('clicked');
+                });
+            });
+
+            // Close modal
+            closeButton.addEventListener('click', function() {
+                modal.querySelector('.modal-content').style.opacity = '0';
+                modal.querySelector('.modal-content').style.transform = 'translateY(30px)';
+                modal.querySelector('.modal-message').style.opacity = '0';
+                modal.querySelector('.modal-message').style.transform = 'translateY(20px)';
+                modal.querySelector('.close-modal').style.opacity = '0';
+                modal.querySelector('.close-modal').style.transform = 'translateY(10px)';
+                
+                setTimeout(() => {
+                    modal.classList.remove('active');
+                    document.querySelectorAll('.object, .letter').forEach(item => {
+                        item.classList.remove('clicked');
+                    });
+                }, 500);
+            });
+
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.querySelector('.modal-content').style.opacity = '0';
+                    modal.querySelector('.modal-content').style.transform = 'translateY(30px)';
+                    modal.querySelector('.modal-message').style.opacity = '0';
+                    modal.querySelector('.modal-message').style.transform = 'translateY(20px)';
+                    modal.querySelector('.close-modal').style.opacity = '0';
+                    modal.querySelector('.close-modal').style.transform = 'translateY(10px)';
+                    
+                    setTimeout(() => {
+                        modal.classList.remove('active');
+                        document.querySelectorAll('.object, .letter').forEach(item => {
+                            item.classList.remove('clicked');
+                        });
+                    }, 500);
+                }
+            });
+
+            // Create fairy lights effect
+            const fairyLights = document.querySelector('.fairy-lights');
+            for (let i = 0; i < 20; i++) {
+                const light = document.createElement('div');
+                light.className = 'light';
+                light.style.left = `${Math.random() * 100}%`;
+                light.style.top = `${Math.random() * 100}%`;
+                light.style.animationDelay = `${Math.random() * 2}s`;
+                fairyLights.appendChild(light);
+            }
+
+            // Time-based message handling
+            function updateTimeMessage() {
+                const timeMessage = document.querySelector('.time-message');
+                const timeIcon = timeMessage.querySelector('.time-icon');
+                const timeText = timeMessage.querySelector('.time-text');
+                
+                const hour = new Date().getHours();
+                
+                // Remove all existing time-based classes
+                timeMessage.classList.remove('morning', 'evening', 'night');
+                
+                if (hour >= 5 && hour < 17) {
+                    // Morning/Day (5 AM - 5 PM)
+                    timeIcon.textContent = '🌅';
+                    timeText.textContent = "You've got time. There's no need to rush.";
+                    timeMessage.classList.add('morning');
+                } else if (hour >= 17 && hour < 22) {
+                    // Evening (5 PM - 10 PM)
+                    timeIcon.textContent = '🌆';
+                    timeText.textContent = "You made it through. That's enough.";
+                    timeMessage.classList.add('evening');
+                } else {
+                    // Late night (10 PM - 5 AM)
+                    timeIcon.textContent = '🌌';
+                    timeText.textContent = "You don't have to carry it alone. Not even in your thoughts.";
+                    timeMessage.classList.add('night');
+                }
+            }
+
+            // Update immediately and then every minute
+            updateTimeMessage();
+            setInterval(updateTimeMessage, 60000);
+        });
+    </script>
+</body>
+</html> 
